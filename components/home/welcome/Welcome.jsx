@@ -13,8 +13,8 @@ import styles from "./welcome.style";
 
 const JOB_TYPES = ["Full-time", "Part-time", "Contractor"];
 
-const Welcome = () => {
-  const [activeJobType, setActiveJobType] = useState("Full-time");
+const Welcome = ({ seatchTerm, setSearchTerm, handleClick }) => {
+  const [activeJobType, setActiveJobType] = useState(JOB_TYPES[0]);
   const router = useRouter();
 
   const onSelectJobType = (item) => {
@@ -32,12 +32,12 @@ const Welcome = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=''
-            onChange={() => {}}
+            value={seatchTerm}
+            onChangeText={(t) => setSearchTerm(t)}
             placeholder='What are you looking for?'
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
           <Image
             source={icons.search}
             resizeMode='contain'
@@ -55,7 +55,7 @@ const Welcome = () => {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.tab(activeJobType, item)}
-              onPress={onSelectJobType}
+              onPress={() => onSelectJobType(item)}
             >
               <Text style={styles.tabText(activeJobType, item)}>{item}</Text>
             </TouchableOpacity>
